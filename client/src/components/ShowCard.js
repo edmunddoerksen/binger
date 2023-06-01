@@ -8,32 +8,24 @@ import {
   Modal,
   Typography,
 } from '@mui/material'
-// import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
 import { NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 import axios from 'axios'
 
-// import { formatDuration } from '../helpers/formatter';
 const config = require('../config.json')
 
-// SHOWCard is a modal (a common example of a modal is a dialog window).
-// Typically, modals will conditionally appear (specified by the Modal's open property)
-// but in our implementation whether the Modal is open is handled by the parent component
-// (see HomePage.js for example), since it depends on the state (selectedSHOW) of the parent
+
 export default function ShowCard({ showName, handleClose }) {
   const [showData, setShowData] = useState({})
   const [streamingData, setStreamingData] = useState([])
-  // const [albumData, setAlbumData] = useState({});
 
-  // const [barRadar, setBarRadar] = useState(true);
 
   useEffect(() => {
     fetch(`http://${config.server_host}:${config.server_port}/show/${showName}`)
       .then((res) => res.json())
       .then((resJson) => {
         setShowData(resJson)
-        // const albumId = resJson.album_id;
 
         fetch(
           `http://${config.server_host}:${config.server_port}/services/${showName}?type=TV Show`,
@@ -42,18 +34,7 @@ export default function ShowCard({ showName, handleClose }) {
           .then((resJson) => setStreamingData(resJson))
       })
   }, [])
-  /*
-  const chartData = [
-    { name: 'Danceability', value: songData.danceability },
-    { name: 'Energy', value: songData.energy },
-    { name: 'Valence', value: songData.valence },
-  ];
-  */
-  /*
-  const handleGraphChange = () => {
-    setBarRadar(!barRadar);
-  };
-  */
+
   const handleLike = async () => {
     console.log("hello");
     const res = await axios.get(

@@ -69,40 +69,23 @@ function SearchPage() {
     )
       .then(res => res.json())
       .then(resJson => {
-        // DataGrid expects an array of objects with a unique id.
-        // To accomplish this, we use a map with spread syntax (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
+
         const returned = resJson.map((show) => {let seasonText = show.duration === 1 ? 'Season' : 'Seasons';
         return { id: show.show_id, ...show, durationText: `${show.duration} ${seasonText}` };});
-      // }(
-          // { id: show.show_id, ...show }));
+
         setResults(returned);
       });
       
-     console.log("Button press");
-     // console.log(service);
-     console.log(title);
-     console.log(director);
-     console.log(cast);
-     console.log(country);
-     console.log(releaseYear[0]);
-     console.log(releaseYear[1]);
-     console.log(rating);
-     console.log(duration[0]);
-     console.log(duration[1]);
-     console.log(listedIn);
+
   }
 
 
   const columns = [
-    /*
-    { field: 'title', headerName: 'Title', width: 300, renderCell: (params) => (
-        <Link onClick={() => setSelectedSongId(params.row.song_id)}>{params.value}</Link>
-    ) },
-    */
+
     { field: 'title', headerName: 'Title', width: 300, renderCell: (params) => (
       <Link onClick={() => setSelectedShowName(params.row.title)}>{params.value}</Link>
   ) },
-    // { field: 'title', headerName: 'Title' },
+
     { field: 'director', width: 130, headerName: 'Director' },
     { field: 'cast', width: 150, headerName: 'Cast' },
     { field: 'country', width: 130, headerName: 'Country' },

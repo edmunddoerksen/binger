@@ -8,25 +8,17 @@ import {
   Modal,
   Typography,
 } from '@mui/material'
-// import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
 import { NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 import axios from 'axios'
 
-// import { formatDuration } from '../helpers/formatter';
 const config = require('../config.json')
 
-// SongCard is a modal (a common example of a modal is a dialog window).
-// Typically, modals will conditionally appear (specified by the Modal's open property)
-// but in our implementation whether the Modal is open is handled by the parent component
-// (see HomePage.js for example), since it depends on the state (selectedSongId) of the parent
 export default function MovieCard({ showName, handleClose }) {
   const [showData, setShowData] = useState({})
   const [streamingData, setStreamingData] = useState([])
-  // const [albumData, setAlbumData] = useState({});
 
-  // const [barRadar, setBarRadar] = useState(true);
   const handleLike = async () => {
     console.log("hello;");
     const res = await axios.get(
@@ -48,18 +40,7 @@ export default function MovieCard({ showName, handleClose }) {
         setShowData(resJson)
       })
   }, [])
-  /*
-  const chartData = [
-    { name: 'Danceability', value: songData.danceability },
-    { name: 'Energy', value: songData.energy },
-    { name: 'Valence', value: songData.valence },
-  ];
-  */
-  /*
-  const handleGraphChange = () => {
-    setBarRadar(!barRadar);
-  };
-  */
+
 
   return (
     <Modal

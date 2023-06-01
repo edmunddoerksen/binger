@@ -1,29 +1,21 @@
 import {commaSeparated} from '../utils.js';
 import { useEffect, useState } from 'react';
 import { Box, Button, ButtonGroup, Link, Modal, Typography } from '@mui/material';
-// import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
 import { NavLink } from 'react-router-dom';
 
-// import { formatDuration } from '../helpers/formatter';
 const config = require('../config.json');
 
-// SongCard is a modal (a common example of a modal is a dialog window).
-// Typically, modals will conditionally appear (specified by the Modal's open property)
-// but in our implementation whether the Modal is open is handled by the parent component
-// (see HomePage.js for example), since it depends on the state (selectedSongId) of the parent
+
 export default function StreamMovieCard({ showName, handleClose }) {
   const [showData, setShowData] = useState({});
   const [streamingData, setStreamingData] = useState([]);
-  // const [albumData, setAlbumData] = useState({});
 
-  // const [barRadar, setBarRadar] = useState(true);
 
  useEffect(() => {
     fetch(`http://${config.server_host}:${config.server_port}/stream_movie/${showName}`)
       .then(res => res.json())
       .then(resJson => {
         setShowData(resJson);
-        // const albumId = resJson.album_id;
         
       });
 
@@ -32,18 +24,7 @@ export default function StreamMovieCard({ showName, handleClose }) {
           .then(resJson => setStreamingData(resJson));
           console.log(streamingData);
   }, []);
-/*
-  const chartData = [
-    { name: 'Danceability', value: songData.danceability },
-    { name: 'Energy', value: songData.energy },
-    { name: 'Valence', value: songData.valence },
-  ];
-  */
-/*
-  const handleGraphChange = () => {
-    setBarRadar(!barRadar);
-  };
-  */
+
 
   return (
     <Modal

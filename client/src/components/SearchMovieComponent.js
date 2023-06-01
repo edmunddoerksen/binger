@@ -1,5 +1,3 @@
-// Will consolidate into the SearchPage later once I figure out how to make the tables not display 100 rows at a time
-
 import React, { useState, useEffect } from 'react'
 import { DataGrid } from '@mui/x-data-grid'
 import {
@@ -56,8 +54,7 @@ function SearchMoviePage() {
       .then((resJson) => {
         const retrieved = resJson.map((show) => ({ id: show.show_id, ...show }))
         setResults(retrieved)
-        // console.log(duration[0]);
-        //  console.log(duration[1]);
+
       })
   }, [])
 
@@ -74,8 +71,7 @@ function SearchMoviePage() {
     )
       .then((res) => res.json())
       .then((resJson) => {
-        // DataGrid expects an array of objects with a unique id.
-        // To accomplish this, we use a map with spread syntax (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
+
         const returned = resJson.map((show) => {
           let seasonText = show.duration === 1 ? 'Season' : 'Seasons'
           return {
@@ -84,38 +80,14 @@ function SearchMoviePage() {
             durationText: `${show.duration} ${seasonText}`,
           }
         })
-        // }(
-        // { id: show.show_id, ...show }));
+
         setResults(returned)
       })
 
-    /*
-     console.log("Button press");
-     console.log(service);
-     console.log(title);
-     console.log(director);
-     console.log(cast);
-     console.log(country);
-     console.log(releaseYear[0]);
-     console.log(releaseYear[1]);
-     console.log(rating);
-     console.log(duration[0]);
-     console.log(duration[1]);
-     console.log(listedIn);
-     */
   }
 
   const columns = [
-    /*
-    { field: 'title', headerName: 'Title', width: 300, renderCell: (params) => (
-        <Link onClick={() => setSelectedSongId(params.row.song_id)}>{params.value}</Link>
-    ) },
-    */
-    /*
-    { field: 'title', headerName: 'Title', width: 300, renderCell: (params) => (
-      <Link onClick={() => setSelectedShowName(params.row.title)}>{params.value}</Link>
-  ) },
-  */
+
     {
       field: 'original_title',
       headerName: 'Title',

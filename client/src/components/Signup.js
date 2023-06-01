@@ -45,7 +45,7 @@ function SignUp() {
   const handleSubmit = async (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    // not at all pretty, need to refactor to include this handling in a separate file
+
     const response = await axios.post(
       `http://${config.server_host}:${config.server_port}/signup`,
       {
