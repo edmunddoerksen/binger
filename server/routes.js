@@ -484,18 +484,18 @@ const stream_movie = async function (req, res) {
     `
     WITH shows AS ((SELECT *
       FROM Netflix
-      WHERE Type LIKE 'Movie')
+      WHERE Type = 'Movie')
       UNION ALL
       (SELECT *
       FROM Amazon
-      WHERE Type LIKE 'Movie')
+      WHERE Type = 'Movie')
       UNION ALL
       (SELECT *
       FROM Hulu
-      WHERE Type LIKE 'Movie')
+      WHERE Type = 'Movie')
       UNION ALL
       (SELECT *
-      FROM Disney WHERE Type LIKE 'Movie'))
+      FROM Disney WHERE Type = 'Movie'))
       SELECT * FROM shows s JOIN Movies m ON s.title=m.original_title AND s.release_year=SUBSTRING(m.modified_release_year, 1, 4) WHERE s.title = '${req.params.title}' LIMIT 1;
   `,
     (err, data) => {
@@ -598,7 +598,7 @@ const search_shows = async function (req, res) {
     .map(
       (platform) => `SELECT *
     FROM ${platform}
-    WHERE type LIKE 'TV Show' AND
+    WHERE type = 'TV Show' AND
           title LIKE '${title}%' AND
           (director LIKE '%${director}%' ${directorNull} AND
           (cast LIKE '%${cast}%' ${castNull} AND
@@ -656,6 +656,7 @@ const imdb = async function (req, res) {
   // Variables to enable entries with null values for certain fields to display in results
   // when the fields aren't specified by the user in their search
   let oLNull
+  let oLCondition;
   let overviewNull
   let oTNull
   releaseYearMax = releaseYearMax + '-12-31'
@@ -666,6 +667,11 @@ const imdb = async function (req, res) {
     oLNull = 'OR original_language IS NULL)'
   } else {
     oLNull = ')'
+  }
+  if (originalLanguage === '') {
+    oLCondition = ``;
+  } else {
+    oLCondition = `original_language = '${originalLanguage}' AND`
   }
   if (overview === '') {
     overviewNull = 'OR overview IS NULL)'
@@ -691,7 +697,7 @@ const imdb = async function (req, res) {
   WHERE budget >= ${budgetMin} AND
         budget <= ${budgetMax}
         ${genreConditions}
-        (original_language LIKE '%${originalLanguage}%' ${oLNull} AND
+        ${oLCondition} 
         (overview LIKE '%${overview}%' ${overviewNull} AND
         (original_title LIKE '${original_title}%' ${oTNull} AND
         modified_release_year BETWEEN '${releaseYearMin}' AND '${releaseYearMax}'
