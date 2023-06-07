@@ -2,8 +2,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Instructions for Use
 
-To start the project first enter the server folder and run:
+To view the frontend, enter the server folder and run:
 1. npm install
 2. npm start
 
-Next, in a different terminal window, enter the client folder and repeat the same steps.
+Note that access to the database has expired so the backend is no longer active.
